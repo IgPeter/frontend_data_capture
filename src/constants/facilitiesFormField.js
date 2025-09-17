@@ -232,4 +232,19 @@ export const singleSection = [
       label: "Sport Facility Comment",
     },
   },
+  {
+    name: "capturedBy",
+    label: "Captured By",
+    type: "select",
+    options: [
+      { label: "Jude", value: "jude" },
+      { label: "Laha", value: "laha" },
+      { label: "Jumoke", value: "jumoke" },
+      { label: "Sodiq", value: "sodiq" },
+      { label: "Abdul", value: "abdul" },
+      { label: "Isaiah", value: "isaiah" },
+      { label: "Michael Ogaga", value: "ogaga" },
+      { label: "Yachiga", value: "yachiga" },
+    ],
+  },
 ];

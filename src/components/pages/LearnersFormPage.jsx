@@ -7,7 +7,9 @@ import FileInput from "@/components/forms/FileInput";
 import PhoneInput from "@/components/forms/PhoneInput";
 import TextareaInput from "@/components/forms/TextareaInput";
 import mainStyles from "../../stylesheets/main.module.css";
+import { useData } from "../../context/appContext";
 import Nav from "../nav";
+import { baseUrl } from "../../utilities/BaseUrl";
 
 export default function LearnersForm() {
   const {
@@ -21,6 +23,7 @@ export default function LearnersForm() {
   const [loading, setLoading] = useState(false);
   const [offlineMode, setOfflineMode] = useState(false);
   const [location, setLocation] = useState({ lat: null, lng: null });
+  const { school } = useData();
 
   const steps = [
     learnersFormFields.slice(0, 4), // Page 1 fields
@@ -61,7 +64,7 @@ export default function LearnersForm() {
     data.latitude = location.lat;
     data.longitude = location.lng;
     try {
-      const res = await fetch("http://localhost:3000/api/v1/learners", {
+      const res = await fetch(`${baseUrl}/api/v1/learners?school=${school}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

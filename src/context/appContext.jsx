@@ -5,9 +5,10 @@ const DataContext = createContext();
 
 export function DataProvider({ children }) {
   const [data, setData] = useState([]);
+  const [school, setSchool] = useState("");
 
   return (
-    <DataContext.Provider value={{ data, setData }}>
+    <DataContext.Provider value={{ data, school, setData, setSchool }}>
       {children}
     </DataContext.Provider>
   );

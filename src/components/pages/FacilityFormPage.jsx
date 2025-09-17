@@ -6,6 +6,8 @@ import TextareaInput from "@/components/forms/TextareaInput";
 import mainStyles from "../../stylesheets/main.module.css";
 import { sections, singleSection } from "../../constants/facilitiesFormField";
 import Nav from "../nav";
+import { useData } from "../../context/appContext";
+import { baseUrl } from "../../utilities/BaseUrl";
 
 // ✅ Build defaultValues dynamically from sections and singleSection
 const buildDefaultValues = () => {
@@ -46,16 +48,20 @@ export default function FacilityForm() {
   const [openSection, setOpenSection] = useState(null);
   const [loading, setLoading] = useState(false);
   const [offlineMode, setOfflineMode] = useState(false);
+  const { school } = useData();
 
   const onSubmit = async (data) => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/facilities", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${baseUrl}/api/v1/facilities?school=${school}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) throw new Error("Network response failed");
 

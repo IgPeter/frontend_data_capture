@@ -9,7 +9,7 @@ export default function Main() {
   const [lgas, setLgas] = useState([]);
   const [schools, setSchools] = useState([]);
   const navigate = useNavigate();
-  const { setData } = useData();
+  const { setData, setSchool } = useData();
 
   const handleSelectLga = async (e) => {
     const lgaValue = e.target.value;
@@ -22,6 +22,7 @@ export default function Main() {
   const handleSelectSchools = (e) => {
     const school = e.target.value;
     if (school) {
+      setSchool(school);
       navigate("/capture-staffs", { school });
     }
   };
@@ -61,7 +62,7 @@ export default function Main() {
             Benue Subeb Data Capture System
           </h1>
           <p className="mt-3 text-gray-600 text-lg">
-            Easily capture and manage educational data across LGAs
+            Easily Capture And Manage Educational Data Across LGAs
           </p>
         </div>
 

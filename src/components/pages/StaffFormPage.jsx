@@ -11,6 +11,7 @@ import { saveOffline } from "../../storage/offlineStorage";
 import { baseUrl } from "../../utilities/BaseUrl";
 import Nav from "../nav";
 import { syncAllData } from "../../../syncService";
+import { useData } from "../../context/appContext";
 
 export default function StaffForm() {
   const {
@@ -25,6 +26,7 @@ export default function StaffForm() {
   const [previewImage, setPreviewImage] = useState(null);
   const [offlineMode, setOfflineMode] = useState(false);
   const [location, setLocation] = useState({ lat: null, lng: null });
+  const { school } = useData();
 
   let staffFormFields = StaffFormFields();
   staffFormFields = staffFormFields.props.children;
@@ -96,7 +98,7 @@ export default function StaffForm() {
       }
 
       // Send to backend
-      const res = await fetch(`${baseUrl}/staffs`, {
+      const res = await fetch(`${baseUrl}/staffs?school=${school}`, {
         method: "POST",
         body: formData, // 🚨 no headers["Content-Type"], browser will set it automatically
       });
@@ -111,7 +113,6 @@ export default function StaffForm() {
       console.warn("⚠️ Offline, saving staff locally...");
       await saveOffline("staffs", data);
       setOfflineMode(true);
-      console.log(data);
       reset();
       setPreviewImage(null);
       setStep(0);
@@ -179,7 +180,7 @@ export default function StaffForm() {
         );
       case "file":
         return (
-          <div className="w-full flex border rounded">
+          <div className="w-full mb-4 flex border rounded">
             <div className="w-[50%] h-54 flex justify-center items-center">
               <FileInput
                 key={field.name}
